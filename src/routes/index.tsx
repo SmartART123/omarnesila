@@ -4,8 +4,8 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "SMART ART — Portfolio" },
-      { name: "description", content: "SMART ART portfolio — view the full experience." },
+      { title: "EYEB RAIN — Portfolio" },
+      { name: "description", content: "EYEB RAIN portfolio — view the full experience." },
     ],
   }),
 });
@@ -14,7 +14,7 @@ function Index() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-background p-6">
       <div className="max-w-xl text-center space-y-6">
-        <h1 className="text-4xl font-bold tracking-tight">SMART ART — Portfolio</h1>
+        <h1 className="text-4xl font-bold tracking-tight">EYEB RAIN — Portfolio</h1>
         <p className="text-muted-foreground">
           The portfolio is served as a standalone page.
         </p>

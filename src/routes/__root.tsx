@@ -29,14 +29,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "omar nesila Portfolio ." },
+      { name: "description", content: "omar nesila Portfolio ." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "omar nesila Portfolio ." },
+      { property: "og:description", content: "omar nesila Portfolio ." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "omar nesila Portfolio ." },
+      { name: "twitter:description", content: "omar nesila Portfolio ." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d4c4b190-8da6-44dc-8348-f778d6755dc1/id-preview-5ca8cb75--35831a42-1dc0-4e40-8a98-4160cdd56939.lovable.app-1780435784873.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d4c4b190-8da6-44dc-8348-f778d6755dc1/id-preview-5ca8cb75--35831a42-1dc0-4e40-8a98-4160cdd56939.lovable.app-1780435784873.png" },
     ],
     links: [
       {

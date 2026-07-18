@@ -1385,7 +1385,9 @@
 
   <div class="char-grid">
     <div class="char-card glitch-hover" onclick="openModal('mclan')">
-      <div class="char-art" style="color:var(--hot-pink);">🦠</div>
+      <div class="char-art" style="padding:0;overflow:hidden;">
+        <img src="/__l5e/assets-v1/00aaf02b-7890-49a5-aba7-488ee608dc4a/mclan.jpg" alt="MCLAN character" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
       <div class="char-overlay">
         <div class="char-name neon-pink">MCLAN</div>
         <div class="char-type">// ORIGINAL CHARACTER</div>
@@ -1939,6 +1941,7 @@ const charData = {
     name: 'MCLAN',
     label: '// ORIGINAL_CHARACTER',
     art: '🦠',
+    image: '/__l5e/assets-v1/3673c330-461e-4a95-8176-7774663e904e/mclan-sheet.png',
     desc: 'MCLAN is the flagship character of the Smart Art universe — a mutant entity born from neon radiation and digital chaos. Bold, grotesque, and utterly unforgettable. Conceived as a pop-art mascot with graffiti soul.',
     tags: ['Original Character', 'Pop Art', 'Mascot Design', 'Neon Palette', 'Blender 3D']
   },
@@ -1972,7 +1975,12 @@ function openModal(id) {
   document.getElementById('modalTitle').textContent = data.name;
   document.getElementById('modalTitle').className = 'modal-title ' +
     (id === 'mclan' ? 'neon-pink' : id === 'phantom' ? 'neon-cyan' : id === 'venom' ? 'neon-green' : 'neon-yellow');
-  document.getElementById('modalArt').textContent = data.art;
+  const artEl = document.getElementById('modalArt');
+  if (data.image) {
+    artEl.innerHTML = '<img src="' + data.image + '" alt="' + data.name + '" style="width:100%;height:auto;max-height:70vh;object-fit:contain;display:block;" />';
+  } else {
+    artEl.textContent = data.art;
+  }
   document.getElementById('modalDesc').textContent = data.desc;
   const tagsEl = document.getElementById('modalTags');
   tagsEl.innerHTML = '';

@@ -2074,16 +2074,68 @@ for (let i = 0; i < 30; i++) {
   particleContainer.appendChild(p);
 }
 
-// ===== SCROLL REVEAL =====
-const reveals = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    }
+// ===== MOTION ENGINE =====
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clampN = (n, a = 0, b = 1) => n < a ? a : n > b ? b : n;
+
+// split headlines into words
+document.querySelectorAll('[data-split]').forEach(el => {
+  const html = el.innerHTML.replace(/<br\s*\/?>/gi, ' <br> ');
+  let i = 0;
+  el.innerHTML = html.trim().split(/\s+/)
+    .map(w => w === '<br>' ? '<br>' : `<span class="w"><i style="--i:${i++}">${w}</i></span>`)
+    .join(' ');
+});
+
+const io = new IntersectionObserver(entries => {
+  for (const e of entries) {
+    if (!e.isIntersecting) continue;
+    e.target.classList.add('is-in');
+    io.unobserve(e.target);
+  }
+}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('[data-anim],[data-split]').forEach(el => io.observe(el));
+
+// parallax + odometer + progress bar, one rAF pass
+const parallax = [...document.querySelectorAll('[data-speed]')];
+const docEl = document.documentElement;
+let raf = null;
+function frame() {
+  raf = null;
+  const vh = innerHeight;
+  for (const el of parallax) {
+    const r = el.getBoundingClientRect();
+    const centered = (r.top + r.height / 2) - vh / 2;
+    el.style.setProperty('--sy', (centered * -parseFloat(el.dataset.speed)).toFixed(1) + 'px');
+  }
+  docEl.style.setProperty('--sx', scrollY.toFixed(0) + 'px');
+  const max = docEl.scrollHeight - vh;
+  docEl.style.setProperty('--sp', max > 0 ? clampN(scrollY / max).toFixed(4) : '0');
+}
+const onScroll = () => { if (raf === null) raf = requestAnimationFrame(frame); };
+addEventListener('scroll', onScroll, { passive: true });
+addEventListener('resize', onScroll);
+frame();
+
+// magnetic buttons
+if (!REDUCED && matchMedia('(pointer:fine)').matches) {
+  document.querySelectorAll('[data-magnet]').forEach(el => {
+    el.addEventListener('pointermove', ev => {
+      const r = el.getBoundingClientRect();
+      const x = (ev.clientX - r.left - r.width / 2) * 0.22;
+      const y = (ev.clientY - r.top - r.height / 2) * 0.3;
+      el.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-reveals.forEach(r => revealObserver.observe(r));
+}
+
+// keyboard access for character cards
+document.querySelectorAll('.char-card[data-char]').forEach(card => {
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card.dataset.char); }
+  });
+});
 
 // ===== SIDE NAV =====
 const dots = document.querySelectorAll('.nav-dot');
@@ -2096,12 +2148,14 @@ dots.forEach(dot => {
   });
 });
 
+const topLinks = [...document.querySelectorAll('#top-nav a[href^="#"]')];
 const sectionObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       dots.forEach(d => d.classList.remove('active'));
       const active = document.querySelector(`.nav-dot[data-target="${e.target.id}"]`);
       if (active) active.classList.add('active');
+      topLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id && !a.classList.contains('cta')));
     }
   });
 }, { threshold: 0.3 });
@@ -2110,17 +2164,14 @@ sections.forEach(id => {
   if (el) sectionObserver.observe(el);
 });
 
-// ===== PARALLAX =====
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  const hero = document.getElementById('hero');
-  if (hero) {
-    const splashes = hero.querySelectorAll('.splash');
-    splashes.forEach((s, i) => {
-      s.style.transform = `translateY(${scrollY * (0.3 + i * 0.1)}px)`;
-    });
-  }
-});
+// ===== NAV: hide on scroll down, show on scroll up =====
+const topNav = document.getElementById('top-nav');
+let lastY = 0;
+addEventListener('scroll', () => {
+  const y = scrollY;
+  topNav.classList.toggle('is-hidden', y > 420 && y > lastY);
+  lastY = y;
+}, { passive: true });
 
 // ===== FILTER BUTTONS =====
 const filterBtns = document.querySelectorAll('.filter-btn');

@@ -1450,6 +1450,22 @@
 
 <div class="scanlines"></div>
 <div class="noise"></div>
+<div class="grain"></div>
+<div id="progress"></div>
+
+<!-- GLASS PILL NAV -->
+<nav id="top-nav" aria-label="Primary">
+  <span class="mark" aria-hidden="true">E</span>
+  <div class="links">
+    <a href="#about">ABOUT</a>
+    <a href="#characters">CHARACTERS</a>
+    <a href="#projects">PROJECTS</a>
+    <a href="#process" class="hide-sm">PROCESS</a>
+    <a href="#graphic-design" class="hide-sm">DESIGN</a>
+    <a href="#merch" class="hide-sm">MERCH</a>
+  </div>
+  <a href="#contact" class="cta">HIRE ME</a>
+</nav>
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 <div class="copy-toast" id="copyToast">HEX COPIED!</div>
@@ -1470,9 +1486,9 @@
 <!-- ====== HERO ====== -->
 <section id="hero">
   <div class="grid-bg"></div>
-  <div class="splash hero-bg-splash1"></div>
-  <div class="splash hero-bg-splash2"></div>
-  <div class="splash hero-bg-splash3"></div>
+  <div class="splash hero-bg-splash1" data-speed="-0.18"></div>
+  <div class="splash hero-bg-splash2" data-speed="0.14"></div>
+  <div class="splash hero-bg-splash3" data-speed="-0.1"></div>
   <div class="particles-container" id="particles"></div>
 
   <div class="hero-inner">
@@ -1486,13 +1502,13 @@
       </div>
     </div>
 
-    <div class="hero-eyebrow">[ CONCEPT ART & GRAPHIC DESIGN ]</div>
-    <h1 class="hero-title reveal"><span style="color:#39ff14">EYE</span> <span style="color:#7b2fff">BRAIN</span></h1>
-    <p class="hero-subtitle reveal">PORTFOLIO</p>
-    <p class="hero-desc reveal">Bringing imagination to life — bold characters, surreal worlds, and designs that shout identity.</p>
-    <div class="hero-buttons reveal">
-      <a href="#projects" class="btn btn-primary">VIEW WORK</a>
-      <a href="#contact" class="btn btn-outline">CONTACT ME</a>
+    <div class="hero-eyebrow" data-anim>[ CONCEPT ART & GRAPHIC DESIGN ]</div>
+    <h1 class="hero-title" data-split><span style="color:#39ff14">EYE</span> <span style="color:#7b2fff">BRAIN</span></h1>
+    <p class="hero-subtitle" data-anim style="--d:2">PORTFOLIO</p>
+    <p class="hero-desc" data-anim style="--d:3">Bringing imagination to life — bold characters, surreal worlds, and designs that shout identity.</p>
+    <div class="hero-buttons" data-anim style="--d:4">
+      <a href="#projects" class="btn btn-primary" data-magnet>VIEW WORK</a>
+      <a href="#contact" class="btn btn-outline" data-magnet>CONTACT ME</a>
     </div>
   </div>
 
@@ -1517,7 +1533,7 @@
 <section id="about">
   <div class="grid-bg"></div>
   <div class="about-inner">
-    <div class="profile-card reveal">
+    <div class="profile-card" data-anim>
       <div class="profile-card-inner">
         <div class="profile-photo">
           <img src="/__l5e/assets-v1/e700936a-73b8-4624-8d1f-54bcdfba827f/stay-ground-poster.png" alt="Stay Ground poster" class="profile-img">
@@ -1531,7 +1547,7 @@
       </div>
     </div>
 
-    <div class="about-content reveal">
+    <div class="about-content" data-anim>
       <span class="section-label">// WHO.AM_I</span>
       <h2><span class="neon-cyan">WHO</span><br><span class="neon-pink">AM I?</span></h2>
 
@@ -1554,12 +1570,26 @@
 
 <div class="section-bar"></div>
 
+<!-- ====== MARQUEE BAND ====== -->
+<section class="marquee-band" aria-hidden="true">
+  <div class="track">
+    <span>CONCEPT ART</span><span class="dim">✦</span>
+    <span class="hot">CHARACTER DESIGN</span><span class="dim">✦</span>
+    <span class="acid">BRANDING</span><span class="dim">✦</span>
+    <span>ILLUSTRATION</span><span class="dim">✦</span>
+    <span class="hot">MERCH</span><span class="dim">✦</span>
+    <span class="acid">POSTERS</span><span class="dim">✦</span>
+    <span>CONCEPT ART</span><span class="dim">✦</span>
+    <span class="hot">CHARACTER DESIGN</span><span class="dim">✦</span>
+  </div>
+</section>
+
 <!-- ====== CHARACTERS ====== -->
 <section id="characters">
   <div class="grid-bg"></div>
-  <div class="section-header reveal">
+  <div class="section-header" data-anim>
     <span class="section-label">// CHARACTERS.EXE</span>
-    <h2 class="section-title">
+    <h2 class="section-title" data-split>
       <span class="neon-pink">CHAR</span><span class="neon-cyan">ACTERS</span>
     </h2>
     <div class="section-divider"></div>
@@ -1567,7 +1597,7 @@
   </div>
 
   <div class="char-grid">
-    <div class="char-card glitch-hover" onclick="openModal('mclan')">
+    <div class="char-card glitch-hover" role="button" tabindex="0" data-char="mclan" onclick="openModal('mclan')">
       <div class="char-art" style="padding:0;overflow:hidden;">
         <img src="/__l5e/assets-v1/00aaf02b-7890-49a5-aba7-488ee608dc4a/mclan.jpg" alt="MCLAN character" style="width:100%;height:100%;object-fit:cover;display:block;" />
       </div>
@@ -1577,7 +1607,7 @@
         <span class="char-view-btn">VIEW PROJECT →</span>
       </div>
     </div>
-    <div class="char-card glitch-hover" onclick="openModal('phantom')">
+    <div class="char-card glitch-hover" role="button" tabindex="0" data-char="phantom" onclick="openModal('phantom')">
       <img src="/__l5e/assets-v1/9961c261-1481-4e04-a2a4-10a052d66aac/phantom.jpg" alt="PHANTOM" class="char-art" style="width:100%;height:100%;object-fit:cover;display:block;" />
       <div class="char-overlay">
         <div class="char-name neon-cyan">PHANTOM</div>
@@ -1586,7 +1616,7 @@
       </div>
     </div>
 
-    <div class="char-card glitch-hover" onclick="openModal('venom')">
+    <div class="char-card glitch-hover" role="button" tabindex="0" data-char="venom" onclick="openModal('venom')">
       <img src="/__l5e/assets-v1/77eb0ffe-222c-415f-91cf-e34a0979d51a/venom.png" alt="VENOM-X" class="char-art" style="width:100%;height:100%;object-fit:cover;display:block;" />
       <div class="char-overlay">
         <div class="char-name neon-green">VENOM-X</div>
@@ -1595,7 +1625,7 @@
       </div>
     </div>
 
-    <div class="char-card glitch-hover" onclick="openModal('solar')">
+    <div class="char-card glitch-hover" role="button" tabindex="0" data-char="solar" onclick="openModal('solar')">
       <div class="char-art" style="color:var(--yellow);">🌀</div>
       <div class="char-overlay">
         <div class="char-name neon-yellow">SOLAR-7</div>
@@ -1625,15 +1655,15 @@
 <!-- ====== PROJECTS ====== -->
 <section id="projects">
   <div class="grid-bg"></div>
-  <div class="section-header reveal">
+  <div class="section-header" data-anim>
     <span class="section-label">// FEATURED.WORK</span>
-    <h2 class="section-title">
+    <h2 class="section-title" data-split>
       <span class="neon-yellow">PRO</span><span class="neon-green">JECTS</span>
     </h2>
     <div class="section-divider" style="background:linear-gradient(90deg,transparent,var(--yellow),transparent)"></div>
   </div>
 
-  <div class="filter-bar reveal">
+  <div class="filter-bar" data-anim>
     <button class="filter-btn active" data-filter="all">ALL</button>
     <button class="filter-btn" data-filter="characters">CHARACTERS</button>
     <button class="filter-btn" data-filter="graphic">GRAPHIC DESIGN</button>
@@ -1642,43 +1672,43 @@
     <button class="filter-btn" data-filter="posters">POSTERS</button>
   </div>
 
-  <div class="masonry-grid reveal" id="masonryGrid">
-    <div class="art-card" data-cat="characters">
+  <div class="masonry-grid" data-anim id="masonryGrid">
+    <div class="art-card" data-anim data-cat="characters">
       <div class="art-card-inner">🦠</div>
       <div class="art-card-info">
         <div class="art-card-title">MCLAN ORIGINS</div>
         <div class="art-card-cat">// CHARACTERS</div>
       </div>
     </div>
-    <div class="art-card" data-cat="graphic">
+    <div class="art-card" data-anim data-cat="graphic">
       <div class="art-card-inner">🎨</div>
       <div class="art-card-info">
         <div class="art-card-title">NEON BRAND PACK</div>
         <div class="art-card-cat">// GRAPHIC DESIGN</div>
       </div>
     </div>
-    <div class="art-card" data-cat="posters">
+    <div class="art-card" data-anim data-cat="posters">
       <div class="art-card-inner">🌐</div>
       <div class="art-card-info">
         <div class="art-card-title">DEMONS RISE</div>
         <div class="art-card-cat">// POSTERS</div>
       </div>
     </div>
-    <div class="art-card" data-cat="branding">
+    <div class="art-card" data-anim data-cat="branding">
       <div class="art-card-inner">⚡</div>
       <div class="art-card-info">
         <div class="art-card-title">SMART BRANDING</div>
         <div class="art-card-cat">// BRANDING</div>
       </div>
     </div>
-    <div class="art-card" data-cat="merch">
+    <div class="art-card" data-anim data-cat="merch">
       <div class="art-card-inner">👕</div>
       <div class="art-card-info">
         <div class="art-card-title">MERCH DROP 01</div>
         <div class="art-card-cat">// MERCH</div>
       </div>
     </div>
-    <div class="art-card" data-cat="characters">
+    <div class="art-card" data-anim data-cat="characters">
       <div class="art-card-inner">👾</div>
       <div class="art-card-info">
         <div class="art-card-title">PHANTOM SERIES</div>
@@ -1693,58 +1723,47 @@
 <!-- ====== PROCESS ====== -->
 <section id="process">
   <div class="grid-bg"></div>
-  <div class="section-header reveal">
+  <div class="section-header" data-anim>
     <span class="section-label">// CREATIVE.PROCESS</span>
-    <h2 class="section-title">
+    <h2 class="section-title" data-split>
       <span class="neon-cyan">THE</span> <span class="neon-pink">PROCESS</span>
     </h2>
     <div class="section-divider"></div>
   </div>
 
-  <div class="process-timeline reveal">
-    <div class="process-line"></div>
-    <div class="process-steps">
-
-      <div class="process-step">
-        <div class="step-icon">
-          ✏️
-          <span class="step-num">1</span>
-        </div>
-        <span class="step-arrow">→</span>
-        <div class="step-title neon-cyan">SKETCH</div>
-        <div class="step-desc">Raw ideas hit paper. Loose gestures, wild shapes, no rules — just energy.</div>
+  <div class="process-stack">
+    <div class="p-panel"><div class="inner">
+      <div class="glyph" aria-hidden="true">✏️</div>
+      <div>
+        <span class="num">01 — SKETCH</span>
+        <h3 class="neon-cyan">SKETCH</h3>
+        <p>Raw ideas hit paper. Loose gestures, wild shapes, no rules — just energy and instinct.</p>
       </div>
-
-      <div class="process-step">
-        <div class="step-icon">
-          🎨
-          <span class="step-num">2</span>
-        </div>
-        <span class="step-arrow">→</span>
-        <div class="step-title neon-pink">COLOR</div>
-        <div class="step-desc">Neon palettes, bold contrasts, acid tones. Color tells the mood before words do.</div>
+    </div></div>
+    <div class="p-panel"><div class="inner">
+      <div class="glyph" aria-hidden="true">🎨</div>
+      <div>
+        <span class="num">02 — COLOR</span>
+        <h3 class="neon-pink">COLOR</h3>
+        <p>Neon palettes, bold contrasts, acid tones. Color tells the mood before words ever do.</p>
       </div>
-
-      <div class="process-step">
-        <div class="step-icon">
-          ⚡
-          <span class="step-num">3</span>
-        </div>
-        <span class="step-arrow">→</span>
-        <div class="step-title neon-green">FINAL ART</div>
-        <div class="step-desc">Details render, lines sharpen, the character breathes. Final glitches added.</div>
+    </div></div>
+    <div class="p-panel"><div class="inner">
+      <div class="glyph" aria-hidden="true">⚡</div>
+      <div>
+        <span class="num">03 — FINAL ART</span>
+        <h3 class="neon-green">FINAL ART</h3>
+        <p>Details render, lines sharpen, the character breathes. Final glitches added on purpose.</p>
       </div>
-
-      <div class="process-step">
-        <div class="step-icon">
-          🖨️
-          <span class="step-num">4</span>
-        </div>
-        <div class="step-title neon-yellow">MOCKUP</div>
-        <div class="step-desc">Art meets product. Tees, posters, frames — the design lives in the real world.</div>
+    </div></div>
+    <div class="p-panel"><div class="inner">
+      <div class="glyph" aria-hidden="true">🖨️</div>
+      <div>
+        <span class="num">04 — MOCKUP</span>
+        <h3 class="neon-yellow">MOCKUP</h3>
+        <p>Art meets product. Tees, posters, frames — the design finally lives in the real world.</p>
       </div>
-
-    </div>
+    </div></div>
   </div>
 </section>
 
@@ -1753,38 +1772,38 @@
 <!-- ====== GRAPHIC DESIGN ====== -->
 <section id="graphic-design">
   <div class="grid-bg"></div>
-  <div class="section-header reveal">
+  <div class="section-header" data-anim>
     <span class="section-label">// GRAPHIC.DESIGN</span>
-    <h2 class="section-title">
+    <h2 class="section-title" data-split>
       <span class="neon-pink">GRAPHIC</span><br><span class="neon-cyan">DESIGN</span>
     </h2>
     <div class="section-divider" style="background:linear-gradient(90deg,transparent,var(--hot-pink),transparent)"></div>
     <p style="max-width:600px;margin:0 auto;color:rgba(240,240,255,0.6);line-height:1.7;">Where creativity meets functionality — from digital illustrations to branding, identity, print materials, and digital assets.</p>
   </div>
 
-  <div class="gd-grid reveal">
-    <div class="gd-card">
+  <div class="gd-grid" data-anim>
+    <div class="gd-card" data-anim>
       <div class="gd-visual">🌌</div>
       <div class="gd-label">
         <span class="gd-label-title">DEMONS POSTER SERIES</span>
         <span class="gd-label-type">POSTER DESIGN</span>
       </div>
     </div>
-    <div class="gd-card">
+    <div class="gd-card" data-anim>
       <div class="gd-visual">⚡</div>
       <div class="gd-label">
         <span class="gd-label-title">BRAND IDENTITY</span>
         <span class="gd-label-type">BRANDING</span>
       </div>
     </div>
-    <div class="gd-card">
+    <div class="gd-card" data-anim>
       <div class="gd-visual">📱</div>
       <div class="gd-label">
         <span class="gd-label-title">SOCIAL MEDIA KIT</span>
         <span class="gd-label-type">DIGITAL</span>
       </div>
     </div>
-    <div class="gd-card">
+    <div class="gd-card" data-anim>
       <div class="gd-visual">🎯</div>
       <div class="gd-label">
         <span class="gd-label-title">LOGO COLLECTION</span>
@@ -1794,7 +1813,7 @@
   </div>
 
   <!-- BEFORE/AFTER SLIDER -->
-  <div class="ba-section reveal">
+  <div class="ba-section" data-anim>
     <div class="ba-title">BEFORE <span class="neon-cyan">→</span> AFTER</div>
     <div class="ba-container" id="baContainer">
       <div class="ba-before">
@@ -1816,16 +1835,16 @@
 <!-- ====== MERCH ====== -->
 <section id="merch">
   <div class="grid-bg"></div>
-  <div class="section-header reveal">
+  <div class="section-header" data-anim>
     <span class="section-label">// MERCH.DROP</span>
-    <h2 class="section-title">
+    <h2 class="section-title" data-split>
       <span class="neon-green">MERCH</span> <span style="color:rgba(255,255,255,0.3)">↗</span>
     </h2>
     <div class="section-divider" style="background:linear-gradient(90deg,transparent,var(--acid-green),transparent)"></div>
   </div>
 
-  <div class="merch-grid reveal">
-    <div class="merch-card">
+  <div class="merch-grid" data-anim>
+    <div class="merch-card" data-anim>
       <div class="merch-visual">
         👕
         <span class="new-badge">NEW</span>
@@ -1836,7 +1855,7 @@
         <button class="merch-btn" onclick="alert('👁️ Mockup coming soon!')">VIEW MOCKUP</button>
       </div>
     </div>
-    <div class="merch-card">
+    <div class="merch-card" data-anim>
       <div class="merch-visual">📖</div>
       <div class="merch-info">
         <div class="merch-name">ART ZINE VOL.1</div>
@@ -1844,7 +1863,7 @@
         <button class="merch-btn" onclick="alert('📖 Preview loading...')">VIEW MOCKUP</button>
       </div>
     </div>
-    <div class="merch-card">
+    <div class="merch-card" data-anim>
       <div class="merch-visual">🖼️</div>
       <div class="merch-info">
         <div class="merch-name">GLOW POSTERS</div>
@@ -1852,7 +1871,7 @@
         <button class="merch-btn" onclick="alert('🖼️ Gallery loading...')">VIEW MOCKUP</button>
       </div>
     </div>
-    <div class="merch-card">
+    <div class="merch-card" data-anim>
       <div class="merch-visual">
         🎴
         <span class="new-badge" style="background:var(--acid-green);color:var(--black);">HOT</span>
@@ -1871,16 +1890,16 @@
 <!-- ====== COLOR PALETTE ====== -->
 <section id="palette">
   <div class="grid-bg"></div>
-  <div class="section-header reveal">
+  <div class="section-header" data-anim>
     <span class="section-label">// COLOR.DNA</span>
-    <h2 class="section-title">
+    <h2 class="section-title" data-split>
       <span class="neon-cyan">COLOR</span> <span class="neon-yellow">PALETTE</span>
     </h2>
     <div class="section-divider" style="background:linear-gradient(90deg,var(--hot-pink),var(--cyan),var(--acid-green),var(--yellow))"></div>
     <p style="color:rgba(255,255,255,0.4);font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;">CLICK ANY SWATCH TO COPY HEX CODE</p>
   </div>
 
-  <div class="palette-container reveal">
+  <div class="palette-container" data-anim>
     <div class="palette-row">
       <div class="color-swatch" style="background:#050508" data-hex="#050508">
         <span class="swatch-hex">#050508</span>
@@ -1943,7 +1962,7 @@
   <div class="grid-bg"></div>
   <div class="splash" style="width:500px;height:500px;background:var(--purple-glow);bottom:-200px;left:50%;transform:translateX(-50%);opacity:0.15"></div>
 
-  <div class="contact-card reveal">
+  <div class="contact-card" data-anim>
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
 
@@ -1958,16 +1977,16 @@
     </p>
 
     <div class="contact-buttons">
-      <a href="#" class="contact-btn cb-insta">
+      <a href="#" data-magnet class="contact-btn cb-insta">
         <span>📷</span> INSTAGRAM
       </a>
-      <a href="#" class="contact-btn cb-dribbble">
+      <a href="#" data-magnet class="contact-btn cb-dribbble">
         <span>🏀</span> DRIBBBLE
       </a>
-      <a href="#" class="contact-btn cb-behance">
+      <a href="#" data-magnet class="contact-btn cb-behance">
         <span>🎨</span> BEHANCE
       </a>
-      <a href="mailto:hello@smartart.com" class="contact-btn cb-email">
+      <a href="mailto:hello@smartart.com" data-magnet class="contact-btn cb-email">
         <span>✉</span> EMAIL ME
       </a>
     </div>
@@ -1977,6 +1996,10 @@
     </div>
   </div>
 </section>
+
+<div class="foot-type" data-split>
+  <span class="neon-green">LET'S</span> <span class="neon-pink">BUILD</span> <span class="neon-cyan">SOMETHING</span>
+</div>
 
 <footer class="footer">
   © 2024 <span>EYE BRAIN</span> PORTFOLIO — ALL RIGHTS RESERVED — DESIGNED WITH ☠️ AND NEON

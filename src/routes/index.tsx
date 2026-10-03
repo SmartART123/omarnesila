@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PortfolioButton } from "@/components/PortfolioButton";
+import logoAsset from "@/assets/eyebrain-logo.png.asset.json";
+
+const LOGO = logoAsset.url;
 
 const NOISE =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
@@ -52,6 +55,19 @@ function Index() {
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: NOISE }} />
 
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
+        {/* Brand mark */}
+        <img
+          src={LOGO}
+          alt="EYE BRAIN logo"
+          width={112}
+          height={112}
+          className="mb-10 select-none"
+          style={{
+            filter: "invert(1) drop-shadow(0 0 22px rgba(123,47,255,0.35)) drop-shadow(0 0 44px rgba(57,255,20,0.18))",
+            mixBlendMode: "screen",
+            animation: "ebLogoIn 1000ms cubic-bezier(0.22,1,0.36,1) both, ebFloat 7s ease-in-out 1000ms infinite",
+          }}
+        />
         {/* Branding */}
         <div className="mb-14 flex flex-col items-center tracking-tighter">
           <h1 className="select-none text-7xl font-bold leading-none sm:text-8xl md:text-9xl">
@@ -127,6 +143,14 @@ function Index() {
         @keyframes ebRise {
           from { opacity: 0; transform: translateY(18px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ebLogoIn {
+          from { opacity: 0; transform: translateY(18px) scale(0.85); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes ebFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
         }
       `}</style>
     </main>

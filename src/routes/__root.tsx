@@ -51,6 +51,11 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;700&display=swap",
       },
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "/favicon.png",
+      },
     ],
   }),
   shellComponent: RootShell,

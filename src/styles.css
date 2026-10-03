@@ -142,3 +142,44 @@
     color: var(--color-foreground);
   }
 }
+
+/* EYEBRAIN landing */
+:root { --eb-ink: oklch(0.13 0.005 280); --eb-paper: oklch(0.95 0.005 280); --eb-green: oklch(0.87 0.29 142); --eb-purple: oklch(0.53 0.29 288); --eb-ease: cubic-bezier(.7,0,.2,1); }
+.eb-landing { position: relative; min-height: 100svh; overflow: hidden; background: var(--eb-ink); color: var(--eb-paper); font-family: "JetBrains Mono", monospace; display: flex; flex-direction: column; }
+.eb-grid { position: absolute; inset: -2px -80px; background-image: linear-gradient(color-mix(in oklab, var(--eb-paper) 5%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab, var(--eb-paper) 5%, transparent) 1px, transparent 1px); background-size: 80px 80px; animation: eb-pan 40s linear infinite; mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%); }
+@keyframes eb-pan { to { transform: translateX(80px); } }
+.eb-glow { position: absolute; width: 50vmax; height: 50vmax; border-radius: 50%; filter: blur(120px); opacity: .14; transition: opacity .6s var(--eb-ease); }
+.eb-glow-a { background: var(--eb-purple); top: -15vmax; right: -10vmax; animation: eb-drift 18s ease-in-out infinite alternate; }
+.eb-glow-b { background: var(--eb-green); bottom: -25vmax; left: -15vmax; opacity: .07; animation: eb-drift 22s ease-in-out infinite alternate-reverse; }
+.is-hover .eb-glow-a { opacity: .24; } .is-hover .eb-glow-b { opacity: .12; }
+@keyframes eb-drift { to { transform: translate(6vmax, 4vmax); } }
+.eb-lines { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: color-mix(in oklab, var(--eb-paper) 7%, transparent); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.eb-lines * { vector-effect: non-scaling-stroke; }
+.eb-particles { position: absolute; inset: 0; pointer-events: none; }
+.eb-grain { position: absolute; inset: 0; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.eb-top { position: relative; z-index: 2; display: flex; justify-content: space-between; padding: 28px clamp(20px, 4vw, 56px); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: .55; }
+.eb-hero { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 clamp(20px, 6vw, 96px) 10vh; }
+.eb-kicker { font-size: 12px; letter-spacing: .35em; text-transform: uppercase; color: var(--eb-green); margin-bottom: 18px; }
+.eb-word { font-family: "Syne", sans-serif; font-weight: 800; font-size: clamp(64px, 16vw, 260px); line-height: .85; letter-spacing: -.05em; }
+.eb-eye { color: var(--eb-paper); } .eb-brain { color: transparent; -webkit-text-stroke: 1.5px var(--eb-purple); }
+.eb-word::after { content: ""; display: inline-block; width: .12em; height: .12em; background: var(--eb-green); margin-left: .04em; }
+.eb-sub { display: flex; flex-wrap: wrap; gap: 0 14px; margin-top: 28px; font-size: clamp(12px, 1.2vw, 15px); letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+.eb-sub i { font-style: normal; margin-right: 14px; color: var(--eb-purple); }
+.eb-statement { margin-top: 18px; max-width: 34ch; font-family: "Syne", sans-serif; font-size: clamp(18px, 2vw, 26px); font-weight: 500; opacity: .6; }
+.eb-cta { --mx: 50%; --my: 50%; position: relative; align-self: flex-start; margin-top: 48px; display: inline-flex; align-items: center; gap: 18px; padding: 20px 34px; border: 1px solid color-mix(in oklab, var(--eb-paper) 25%, transparent); font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: var(--eb-paper); overflow: hidden; isolation: isolate; transition: transform .35s var(--eb-ease), padding .35s var(--eb-ease), border-color .35s var(--eb-ease); }
+.eb-cta::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(160px circle at var(--mx) var(--my), color-mix(in oklab, var(--eb-green) 35%, transparent), transparent 70%); opacity: 0; transition: opacity .35s; }
+.eb-cta::after { content: ""; position: absolute; inset: -1px; border: 1px solid transparent; background: linear-gradient(90deg, var(--eb-green), var(--eb-purple), var(--eb-green)) border-box; background-size: 200% 100%; -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: eb-border 4s linear infinite; opacity: .6; }
+@keyframes eb-border { to { background-position: 200% 0; } }
+.eb-cta:hover { padding-left: 44px; padding-right: 44px; border-color: transparent; }
+.eb-cta:hover::before { opacity: 1; } .eb-cta:hover::after { opacity: 1; }
+.eb-cta-arrow { transition: transform .35s var(--eb-ease); } .eb-cta:hover .eb-cta-arrow { transform: translateX(8px); }
+.eb-in { opacity: 0; animation: eb-up .9s var(--eb-ease) forwards; }
+@keyframes eb-up { from { opacity: 0; transform: translateY(24px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+.eb-wipe { position: fixed; inset: 0; z-index: 50; pointer-events: all; }
+.eb-wipe > div { position: absolute; inset: 0; clip-path: circle(0 at var(--wx) var(--wy)); }
+.eb-wipe-g { background: var(--eb-green); animation: eb-clip .7s var(--eb-ease) forwards; }
+.eb-wipe-p { background: var(--eb-purple); animation: eb-clip .7s var(--eb-ease) .18s forwards; }
+@keyframes eb-clip { to { clip-path: circle(150vmax at var(--wx) var(--wy)); } }
+.eb-wipe-word { position: absolute; inset: 0; display: grid; place-items: center; font-family: "Syne", sans-serif; font-weight: 800; font-size: clamp(40px, 9vw, 140px); color: var(--eb-ink); opacity: 0; animation: eb-word .6s var(--eb-ease) .5s forwards; }
+@keyframes eb-word { from { opacity: 0; transform: scale(1.1); filter: blur(10px); } to { opacity: 1; transform: none; filter: none; } }
+@media (prefers-reduced-motion: reduce) { .eb-landing *, .eb-landing *::before, .eb-landing *::after { animation-duration: .01s !important; animation-iteration-count: 1 !important; } }

@@ -1261,211 +1261,12 @@
     80% { filter: none; }
     100% { filter: none; }
   }
-  /* ══════════════════════════════════════════════════════════
-     UPGRADE LAYER — motion system, glass nav, marquee,
-     sticky process panels, unified spacing & mobile polish
-     ══════════════════════════════════════════════════════════ */
-  :root {
-    --ease: cubic-bezier(.16,1,.3,1);
-    --ease-io: cubic-bezier(.65,0,.35,1);
-    --dur: .9s;
-    --pad: clamp(20px, 5vw, 80px);
-    --maxw: 1280px;
-    --r: 18px;
-    --line: rgba(240,240,255,.12);
-  }
-
-  /* ── MOTION PRIMITIVES ── */
-  [data-anim]{
-    opacity:0; transform:translate3d(0,26px,0); filter:blur(6px);
-    transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease), filter var(--dur) var(--ease);
-    transition-delay:calc(var(--d,0) * 70ms);
-  }
-  [data-anim].is-in{ opacity:1; transform:none; filter:none; }
-
-  [data-split] .w{ display:inline-block; overflow:hidden; vertical-align:top; padding-bottom:.16em; margin-bottom:-.16em; }
-  [data-split] .w > i{
-    display:inline-block; font-style:normal;
-    transform:translate3d(0,110%,0) rotate(3deg);
-    transition:transform 1s var(--ease);
-    transition-delay:calc(var(--i) * 55ms);
-  }
-  [data-split].is-in .w > i{ transform:none; }
-
-  [data-speed]{ transform:translate3d(0, var(--sy,0px), 0); will-change:transform; }
-  [data-magnet]{ transition:transform .45s var(--ease), background .3s, color .3s, box-shadow .3s; }
-
-  /* film grain — kills banding, adds depth */
-  .grain{
-    position:fixed; inset:0; pointer-events:none; z-index:9000; opacity:.16; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-  }
-
-  /* scroll progress bar */
-  #progress{
-    position:fixed; top:0; left:0; height:2px; z-index:9500;
-    width:100%; transform-origin:0 50%; transform:scaleX(var(--sp,0));
-    background:linear-gradient(90deg,var(--hot-pink),var(--purple-glow),var(--cyan),var(--acid-green));
-    box-shadow:0 0 12px rgba(0,245,255,.6);
-  }
-
-  /* ── GLASS PILL NAV ── */
-  #top-nav{
-    position:fixed; z-index:9100; top:16px; left:50%;
-    transform:translateX(-50%) translateY(var(--nav-y,0));
-    display:flex; align-items:center; gap:2px; padding:6px;
-    background:rgba(10,8,18,.72); border:1px solid var(--line); border-radius:999px;
-    backdrop-filter:blur(18px) saturate(1.4);
-    box-shadow:0 12px 40px rgba(0,0,0,.6);
-    transition:transform .5s var(--ease), opacity .5s var(--ease);
-    max-width:calc(100vw - 24px);
-  }
-  #top-nav.is-hidden{ --nav-y:-160%; opacity:0; }
-  #top-nav .mark{
-    width:30px; height:30px; display:grid; place-items:center; border-radius:50%;
-    background:linear-gradient(135deg,var(--acid-green),var(--purple-glow));
-    color:var(--black); font-family:'Black Ops One',sans-serif; font-size:13px; margin-right:6px; flex:0 0 auto;
-  }
-  #top-nav .links{ display:flex; align-items:center; gap:2px; overflow-x:auto; scrollbar-width:none; }
-  #top-nav .links::-webkit-scrollbar{ display:none; }
-  #top-nav a{
-    padding:8px 14px; border-radius:999px; font-family:'Share Tech Mono',monospace;
-    font-size:12px; letter-spacing:1.5px; color:rgba(240,240,255,.62);
-    text-decoration:none; white-space:nowrap; transition:color .3s, background .3s;
-  }
-  #top-nav a:hover, #top-nav a.active{ color:var(--white); background:rgba(0,245,255,.12); }
-  #top-nav a.cta{
-    background:var(--acid-green); color:var(--black); font-weight:700; margin-left:4px;
-  }
-  #top-nav a.cta:hover{ background:var(--cyan); color:var(--black); box-shadow:0 0 20px var(--cyan); }
-  @media (max-width:720px){ #top-nav a.hide-sm{ display:none; } }
-
-  /* ── MARQUEE BAND (rides the scroll odometer) ── */
-  .marquee-band{
-    min-height:0; padding:26px 0; overflow:hidden; white-space:nowrap;
-    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-    background:linear-gradient(90deg,rgba(123,47,255,.10),rgba(0,245,255,.06),rgba(255,0,110,.10));
-  }
-  .marquee-band .track{
-    display:inline-flex; gap:.5em; will-change:transform;
-    transform:translate3d(calc(-20% + var(--sx,0px) * -.28), 0, 0);
-  }
-  .marquee-band .track > span{
-    font-family:'Bebas Neue',sans-serif; letter-spacing:2px;
-    font-size:clamp(38px,7vw,88px); line-height:1; color:var(--white);
-  }
-  .marquee-band .track > span.dim{ color:transparent; -webkit-text-stroke:1px rgba(240,240,255,.35); }
-  .marquee-band .track > span.hot{ color:var(--hot-pink); }
-  .marquee-band .track > span.acid{ color:var(--acid-green); }
-
-  /* ── SECTION RHYTHM ── */
-  section{ min-height:auto; padding-block:clamp(72px,11vh,140px); }
-  #hero{ min-height:100svh; padding-block:0; }
-  .section-header{ padding-inline:var(--pad); }
-  .char-grid, .masonry-grid, .gd-grid, .merch-grid, .filter-bar, .palette-container,
-  .about-inner, .ba-section, .process-timeline{ padding-inline:var(--pad); }
-  .char-grid, .masonry-grid, .gd-grid, .merch-grid, .about-inner{ max-width:var(--maxw); margin-inline:auto; }
-
-  /* ── HERO POLISH ── */
-  .hero-title{ letter-spacing:-.02em; }
-  .btn{ border-radius:999px; }
-  .btn:focus-visible, .contact-btn:focus-visible, .merch-btn:focus-visible,
-  .filter-btn:focus-visible, .char-card:focus-visible, #top-nav a:focus-visible{
-    outline:2px solid var(--acid-green); outline-offset:3px;
-  }
-
-  /* ── CARD SYSTEM: unified radius + premium hover ── */
-  .char-card, .art-card, .gd-card, .merch-card, .profile-card, .contact-card, .ba-container, .modal-box{
-    border-radius:var(--r);
-  }
-  .char-card, .art-card, .gd-card, .merch-card{
-    transition:transform .55s var(--ease), border-color .35s, box-shadow .35s;
-  }
-  .char-card:hover, .gd-card:hover{ transform:translateY(-6px); }
-  .char-card{ cursor:pointer; }
-
-  /* ── PROCESS → STICKY STACKING PANELS ── */
-  .process-stack{ max-width:960px; margin-inline:auto; padding-inline:var(--pad); }
-  .p-panel{ position:sticky; top:96px; margin-bottom:26px; }
-  .p-panel .inner{
-    display:grid; grid-template-columns:150px 1fr; gap:28px; align-items:center;
-    padding:clamp(24px,4vw,44px);
-    border:1px solid var(--line); border-radius:var(--r);
-    background:linear-gradient(150deg,rgba(26,10,46,.92),rgba(5,5,8,.96));
-    backdrop-filter:blur(10px);
-    box-shadow:0 40px 80px -40px rgba(0,0,0,.9);
-  }
-  .p-panel .num{
-    font-family:'Share Tech Mono',monospace; font-size:12px; letter-spacing:3px;
-    color:rgba(240,240,255,.4); display:block; margin-bottom:14px;
-  }
-  .p-panel .glyph{
-    width:96px; height:96px; display:grid; place-items:center; font-size:40px;
-    border-radius:50%; background:var(--purple);
-  }
-  .p-panel:nth-child(1) .glyph{ border:2px solid var(--cyan); box-shadow:0 0 24px rgba(0,245,255,.5); }
-  .p-panel:nth-child(2) .glyph{ border:2px solid var(--hot-pink); box-shadow:0 0 24px rgba(255,0,110,.5); }
-  .p-panel:nth-child(3) .glyph{ border:2px solid var(--acid-green); box-shadow:0 0 24px rgba(57,255,20,.5); }
-  .p-panel:nth-child(4) .glyph{ border:2px solid var(--yellow); box-shadow:0 0 24px rgba(255,230,0,.5); }
-  .p-panel h3{
-    font-family:'Bebas Neue',sans-serif; font-size:clamp(26px,3.4vw,40px);
-    letter-spacing:2px; margin-bottom:8px;
-  }
-  .p-panel p{ color:rgba(240,240,255,.6); line-height:1.75; max-width:52ch; }
-  @media (max-width:700px){
-    .p-panel{ position:static; }
-    .p-panel .inner{ grid-template-columns:1fr; gap:18px; text-align:left; }
-    .p-panel .glyph{ width:68px; height:68px; font-size:30px; }
-  }
-
-  /* ── FOOTER CTA TYPE ── */
-  .foot-type{
-    font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,15vw,190px);
-    line-height:.86; letter-spacing:-.01em; text-align:center;
-    padding:0 var(--pad) 8px;
-  }
-
-  /* ── MOBILE / TOUCH POLISH ── */
-  @media (hover:none), (pointer:coarse){
-    body{ cursor:auto; }
-    #cursor, #cursor-ring{ display:none; }
-    #side-nav{ display:none; }
-  }
-  @media (max-width:900px){ #side-nav{ display:none; } }
-  @media (max-width:430px){
-    .char-grid{ grid-template-columns:1fr; }
-    .gd-card:first-child{ grid-column:auto; }
-    .palette-row{ flex-wrap:wrap; }
-    .contact-buttons{ grid-template-columns:1fr; }
-    .marquee-band{ padding:18px 0; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation:none !important; transition:none !important; }
-    [data-anim], [data-split] .w > i{ opacity:1 !important; transform:none !important; filter:none !important; }
-  }
 </style>
 </head>
 <body>
 
 <div class="scanlines"></div>
 <div class="noise"></div>
-<div class="grain"></div>
-<div id="progress"></div>
-
-<!-- GLASS PILL NAV -->
-<nav id="top-nav" aria-label="Primary">
-  <span class="mark" aria-hidden="true">E</span>
-  <div class="links">
-    <a href="#about">ABOUT</a>
-    <a href="#characters">CHARACTERS</a>
-    <a href="#projects">PROJECTS</a>
-    <a href="#process" class="hide-sm">PROCESS</a>
-    <a href="#graphic-design" class="hide-sm">DESIGN</a>
-    <a href="#merch" class="hide-sm">MERCH</a>
-  </div>
-  <a href="#contact" class="cta">HIRE ME</a>
-</nav>
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 <div class="copy-toast" id="copyToast">HEX COPIED!</div>
@@ -1486,9 +1287,9 @@
 <!-- ====== HERO ====== -->
 <section id="hero">
   <div class="grid-bg"></div>
-  <div class="splash hero-bg-splash1" data-speed="-0.18"></div>
-  <div class="splash hero-bg-splash2" data-speed="0.14"></div>
-  <div class="splash hero-bg-splash3" data-speed="-0.1"></div>
+  <div class="splash hero-bg-splash1"></div>
+  <div class="splash hero-bg-splash2"></div>
+  <div class="splash hero-bg-splash3"></div>
   <div class="particles-container" id="particles"></div>
 
   <div class="hero-inner">
@@ -1502,13 +1303,13 @@
       </div>
     </div>
 
-    <div class="hero-eyebrow" data-anim>[ CONCEPT ART & GRAPHIC DESIGN ]</div>
-    <h1 class="hero-title" data-split><span style="color:#39ff14">EYE</span> <span style="color:#7b2fff">BRAIN</span></h1>
-    <p class="hero-subtitle" data-anim style="--d:2">PORTFOLIO</p>
-    <p class="hero-desc" data-anim style="--d:3">Bringing imagination to life — bold characters, surreal worlds, and designs that shout identity.</p>
-    <div class="hero-buttons" data-anim style="--d:4">
-      <a href="#projects" class="btn btn-primary" data-magnet>VIEW WORK</a>
-      <a href="#contact" class="btn btn-outline" data-magnet>CONTACT ME</a>
+    <div class="hero-eyebrow">[ CONCEPT ART & GRAPHIC DESIGN ]</div>
+    <h1 class="hero-title reveal"><span style="color:#39ff14">EYE</span> <span style="color:#7b2fff">BRAIN</span></h1>
+    <p class="hero-subtitle reveal">PORTFOLIO</p>
+    <p class="hero-desc reveal">Bringing imagination to life — bold characters, surreal worlds, and designs that shout identity.</p>
+    <div class="hero-buttons reveal">
+      <a href="#projects" class="btn btn-primary">VIEW WORK</a>
+      <a href="#contact" class="btn btn-outline">CONTACT ME</a>
     </div>
   </div>
 
@@ -1533,7 +1334,7 @@
 <section id="about">
   <div class="grid-bg"></div>
   <div class="about-inner">
-    <div class="profile-card" data-anim>
+    <div class="profile-card reveal">
       <div class="profile-card-inner">
         <div class="profile-photo">
           <img src="/__l5e/assets-v1/e700936a-73b8-4624-8d1f-54bcdfba827f/stay-ground-poster.png" alt="Stay Ground poster" class="profile-img">
@@ -1547,7 +1348,7 @@
       </div>
     </div>
 
-    <div class="about-content" data-anim>
+    <div class="about-content reveal">
       <span class="section-label">// WHO.AM_I</span>
       <h2><span class="neon-cyan">WHO</span><br><span class="neon-pink">AM I?</span></h2>
 
@@ -1570,26 +1371,12 @@
 
 <div class="section-bar"></div>
 
-<!-- ====== MARQUEE BAND ====== -->
-<section class="marquee-band" aria-hidden="true">
-  <div class="track">
-    <span>CONCEPT ART</span><span class="dim">✦</span>
-    <span class="hot">CHARACTER DESIGN</span><span class="dim">✦</span>
-    <span class="acid">BRANDING</span><span class="dim">✦</span>
-    <span>ILLUSTRATION</span><span class="dim">✦</span>
-    <span class="hot">MERCH</span><span class="dim">✦</span>
-    <span class="acid">POSTERS</span><span class="dim">✦</span>
-    <span>CONCEPT ART</span><span class="dim">✦</span>
-    <span class="hot">CHARACTER DESIGN</span><span class="dim">✦</span>
-  </div>
-</section>
-
 <!-- ====== CHARACTERS ====== -->
 <section id="characters">
   <div class="grid-bg"></div>
-  <div class="section-header" data-anim>
+  <div class="section-header reveal">
     <span class="section-label">// CHARACTERS.EXE</span>
-    <h2 class="section-title" data-split>
+    <h2 class="section-title">
       <span class="neon-pink">CHAR</span><span class="neon-cyan">ACTERS</span>
     </h2>
     <div class="section-divider"></div>
@@ -1597,7 +1384,7 @@
   </div>
 
   <div class="char-grid">
-    <div class="char-card glitch-hover" role="button" tabindex="0" data-char="mclan" onclick="openModal('mclan')">
+    <div class="char-card glitch-hover" onclick="openModal('mclan')">
       <div class="char-art" style="padding:0;overflow:hidden;">
         <img src="/__l5e/assets-v1/00aaf02b-7890-49a5-aba7-488ee608dc4a/mclan.jpg" alt="MCLAN character" style="width:100%;height:100%;object-fit:cover;display:block;" />
       </div>
@@ -1607,7 +1394,7 @@
         <span class="char-view-btn">VIEW PROJECT →</span>
       </div>
     </div>
-    <div class="char-card glitch-hover" role="button" tabindex="0" data-char="phantom" onclick="openModal('phantom')">
+    <div class="char-card glitch-hover" onclick="openModal('phantom')">
       <img src="/__l5e/assets-v1/9961c261-1481-4e04-a2a4-10a052d66aac/phantom.jpg" alt="PHANTOM" class="char-art" style="width:100%;height:100%;object-fit:cover;display:block;" />
       <div class="char-overlay">
         <div class="char-name neon-cyan">PHANTOM</div>
@@ -1616,16 +1403,15 @@
       </div>
     </div>
 
-    <div class="char-card glitch-hover" role="button" tabindex="0" data-char="venom" onclick="openModal('venom')">
-      <img src="/__l5e/assets-v1/77eb0ffe-222c-415f-91cf-e34a0979d51a/venom.png" alt="VENOM-X" class="char-art" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    <div class="char-card glitch-hover" onclick="openModal('venom')">
+      <div class="char-art" style="color:var(--acid-green);">🧬</div>
       <div class="char-overlay">
         <div class="char-name neon-green">VENOM-X</div>
         <div class="char-type">// CREATURE DESIGN</div>
         <span class="char-view-btn">VIEW PROJECT →</span>
       </div>
     </div>
-
-    <div class="char-card glitch-hover" role="button" tabindex="0" data-char="solar" onclick="openModal('solar')">
+    <div class="char-card glitch-hover" onclick="openModal('solar')">
       <div class="char-art" style="color:var(--yellow);">🌀</div>
       <div class="char-overlay">
         <div class="char-name neon-yellow">SOLAR-7</div>
@@ -1655,15 +1441,15 @@
 <!-- ====== PROJECTS ====== -->
 <section id="projects">
   <div class="grid-bg"></div>
-  <div class="section-header" data-anim>
+  <div class="section-header reveal">
     <span class="section-label">// FEATURED.WORK</span>
-    <h2 class="section-title" data-split>
+    <h2 class="section-title">
       <span class="neon-yellow">PRO</span><span class="neon-green">JECTS</span>
     </h2>
     <div class="section-divider" style="background:linear-gradient(90deg,transparent,var(--yellow),transparent)"></div>
   </div>
 
-  <div class="filter-bar" data-anim>
+  <div class="filter-bar reveal">
     <button class="filter-btn active" data-filter="all">ALL</button>
     <button class="filter-btn" data-filter="characters">CHARACTERS</button>
     <button class="filter-btn" data-filter="graphic">GRAPHIC DESIGN</button>
@@ -1672,43 +1458,43 @@
     <button class="filter-btn" data-filter="posters">POSTERS</button>
   </div>
 
-  <div class="masonry-grid" data-anim id="masonryGrid">
-    <div class="art-card" data-anim data-cat="characters">
+  <div class="masonry-grid reveal" id="masonryGrid">
+    <div class="art-card" data-cat="characters">
       <div class="art-card-inner">🦠</div>
       <div class="art-card-info">
         <div class="art-card-title">MCLAN ORIGINS</div>
         <div class="art-card-cat">// CHARACTERS</div>
       </div>
     </div>
-    <div class="art-card" data-anim data-cat="graphic">
+    <div class="art-card" data-cat="graphic">
       <div class="art-card-inner">🎨</div>
       <div class="art-card-info">
         <div class="art-card-title">NEON BRAND PACK</div>
         <div class="art-card-cat">// GRAPHIC DESIGN</div>
       </div>
     </div>
-    <div class="art-card" data-anim data-cat="posters">
+    <div class="art-card" data-cat="posters">
       <div class="art-card-inner">🌐</div>
       <div class="art-card-info">
         <div class="art-card-title">DEMONS RISE</div>
         <div class="art-card-cat">// POSTERS</div>
       </div>
     </div>
-    <div class="art-card" data-anim data-cat="branding">
+    <div class="art-card" data-cat="branding">
       <div class="art-card-inner">⚡</div>
       <div class="art-card-info">
         <div class="art-card-title">SMART BRANDING</div>
         <div class="art-card-cat">// BRANDING</div>
       </div>
     </div>
-    <div class="art-card" data-anim data-cat="merch">
+    <div class="art-card" data-cat="merch">
       <div class="art-card-inner">👕</div>
       <div class="art-card-info">
         <div class="art-card-title">MERCH DROP 01</div>
         <div class="art-card-cat">// MERCH</div>
       </div>
     </div>
-    <div class="art-card" data-anim data-cat="characters">
+    <div class="art-card" data-cat="characters">
       <div class="art-card-inner">👾</div>
       <div class="art-card-info">
         <div class="art-card-title">PHANTOM SERIES</div>
@@ -1723,47 +1509,58 @@
 <!-- ====== PROCESS ====== -->
 <section id="process">
   <div class="grid-bg"></div>
-  <div class="section-header" data-anim>
+  <div class="section-header reveal">
     <span class="section-label">// CREATIVE.PROCESS</span>
-    <h2 class="section-title" data-split>
+    <h2 class="section-title">
       <span class="neon-cyan">THE</span> <span class="neon-pink">PROCESS</span>
     </h2>
     <div class="section-divider"></div>
   </div>
 
-  <div class="process-stack">
-    <div class="p-panel"><div class="inner">
-      <div class="glyph" aria-hidden="true">✏️</div>
-      <div>
-        <span class="num">01 — SKETCH</span>
-        <h3 class="neon-cyan">SKETCH</h3>
-        <p>Raw ideas hit paper. Loose gestures, wild shapes, no rules — just energy and instinct.</p>
+  <div class="process-timeline reveal">
+    <div class="process-line"></div>
+    <div class="process-steps">
+
+      <div class="process-step">
+        <div class="step-icon">
+          ✏️
+          <span class="step-num">1</span>
+        </div>
+        <span class="step-arrow">→</span>
+        <div class="step-title neon-cyan">SKETCH</div>
+        <div class="step-desc">Raw ideas hit paper. Loose gestures, wild shapes, no rules — just energy.</div>
       </div>
-    </div></div>
-    <div class="p-panel"><div class="inner">
-      <div class="glyph" aria-hidden="true">🎨</div>
-      <div>
-        <span class="num">02 — COLOR</span>
-        <h3 class="neon-pink">COLOR</h3>
-        <p>Neon palettes, bold contrasts, acid tones. Color tells the mood before words ever do.</p>
+
+      <div class="process-step">
+        <div class="step-icon">
+          🎨
+          <span class="step-num">2</span>
+        </div>
+        <span class="step-arrow">→</span>
+        <div class="step-title neon-pink">COLOR</div>
+        <div class="step-desc">Neon palettes, bold contrasts, acid tones. Color tells the mood before words do.</div>
       </div>
-    </div></div>
-    <div class="p-panel"><div class="inner">
-      <div class="glyph" aria-hidden="true">⚡</div>
-      <div>
-        <span class="num">03 — FINAL ART</span>
-        <h3 class="neon-green">FINAL ART</h3>
-        <p>Details render, lines sharpen, the character breathes. Final glitches added on purpose.</p>
+
+      <div class="process-step">
+        <div class="step-icon">
+          ⚡
+          <span class="step-num">3</span>
+        </div>
+        <span class="step-arrow">→</span>
+        <div class="step-title neon-green">FINAL ART</div>
+        <div class="step-desc">Details render, lines sharpen, the character breathes. Final glitches added.</div>
       </div>
-    </div></div>
-    <div class="p-panel"><div class="inner">
-      <div class="glyph" aria-hidden="true">🖨️</div>
-      <div>
-        <span class="num">04 — MOCKUP</span>
-        <h3 class="neon-yellow">MOCKUP</h3>
-        <p>Art meets product. Tees, posters, frames — the design finally lives in the real world.</p>
+
+      <div class="process-step">
+        <div class="step-icon">
+          🖨️
+          <span class="step-num">4</span>
+        </div>
+        <div class="step-title neon-yellow">MOCKUP</div>
+        <div class="step-desc">Art meets product. Tees, posters, frames — the design lives in the real world.</div>
       </div>
-    </div></div>
+
+    </div>
   </div>
 </section>
 
@@ -1772,38 +1569,38 @@
 <!-- ====== GRAPHIC DESIGN ====== -->
 <section id="graphic-design">
   <div class="grid-bg"></div>
-  <div class="section-header" data-anim>
+  <div class="section-header reveal">
     <span class="section-label">// GRAPHIC.DESIGN</span>
-    <h2 class="section-title" data-split>
+    <h2 class="section-title">
       <span class="neon-pink">GRAPHIC</span><br><span class="neon-cyan">DESIGN</span>
     </h2>
     <div class="section-divider" style="background:linear-gradient(90deg,transparent,var(--hot-pink),transparent)"></div>
     <p style="max-width:600px;margin:0 auto;color:rgba(240,240,255,0.6);line-height:1.7;">Where creativity meets functionality — from digital illustrations to branding, identity, print materials, and digital assets.</p>
   </div>
 
-  <div class="gd-grid" data-anim>
-    <div class="gd-card" data-anim>
+  <div class="gd-grid reveal">
+    <div class="gd-card">
       <div class="gd-visual">🌌</div>
       <div class="gd-label">
         <span class="gd-label-title">DEMONS POSTER SERIES</span>
         <span class="gd-label-type">POSTER DESIGN</span>
       </div>
     </div>
-    <div class="gd-card" data-anim>
+    <div class="gd-card">
       <div class="gd-visual">⚡</div>
       <div class="gd-label">
         <span class="gd-label-title">BRAND IDENTITY</span>
         <span class="gd-label-type">BRANDING</span>
       </div>
     </div>
-    <div class="gd-card" data-anim>
+    <div class="gd-card">
       <div class="gd-visual">📱</div>
       <div class="gd-label">
         <span class="gd-label-title">SOCIAL MEDIA KIT</span>
         <span class="gd-label-type">DIGITAL</span>
       </div>
     </div>
-    <div class="gd-card" data-anim>
+    <div class="gd-card">
       <div class="gd-visual">🎯</div>
       <div class="gd-label">
         <span class="gd-label-title">LOGO COLLECTION</span>
@@ -1813,7 +1610,7 @@
   </div>
 
   <!-- BEFORE/AFTER SLIDER -->
-  <div class="ba-section" data-anim>
+  <div class="ba-section reveal">
     <div class="ba-title">BEFORE <span class="neon-cyan">→</span> AFTER</div>
     <div class="ba-container" id="baContainer">
       <div class="ba-before">
@@ -1835,16 +1632,16 @@
 <!-- ====== MERCH ====== -->
 <section id="merch">
   <div class="grid-bg"></div>
-  <div class="section-header" data-anim>
+  <div class="section-header reveal">
     <span class="section-label">// MERCH.DROP</span>
-    <h2 class="section-title" data-split>
+    <h2 class="section-title">
       <span class="neon-green">MERCH</span> <span style="color:rgba(255,255,255,0.3)">↗</span>
     </h2>
     <div class="section-divider" style="background:linear-gradient(90deg,transparent,var(--acid-green),transparent)"></div>
   </div>
 
-  <div class="merch-grid" data-anim>
-    <div class="merch-card" data-anim>
+  <div class="merch-grid reveal">
+    <div class="merch-card">
       <div class="merch-visual">
         👕
         <span class="new-badge">NEW</span>
@@ -1855,7 +1652,7 @@
         <button class="merch-btn" onclick="alert('👁️ Mockup coming soon!')">VIEW MOCKUP</button>
       </div>
     </div>
-    <div class="merch-card" data-anim>
+    <div class="merch-card">
       <div class="merch-visual">📖</div>
       <div class="merch-info">
         <div class="merch-name">ART ZINE VOL.1</div>
@@ -1863,7 +1660,7 @@
         <button class="merch-btn" onclick="alert('📖 Preview loading...')">VIEW MOCKUP</button>
       </div>
     </div>
-    <div class="merch-card" data-anim>
+    <div class="merch-card">
       <div class="merch-visual">🖼️</div>
       <div class="merch-info">
         <div class="merch-name">GLOW POSTERS</div>
@@ -1871,7 +1668,7 @@
         <button class="merch-btn" onclick="alert('🖼️ Gallery loading...')">VIEW MOCKUP</button>
       </div>
     </div>
-    <div class="merch-card" data-anim>
+    <div class="merch-card">
       <div class="merch-visual">
         🎴
         <span class="new-badge" style="background:var(--acid-green);color:var(--black);">HOT</span>
@@ -1890,16 +1687,16 @@
 <!-- ====== COLOR PALETTE ====== -->
 <section id="palette">
   <div class="grid-bg"></div>
-  <div class="section-header" data-anim>
+  <div class="section-header reveal">
     <span class="section-label">// COLOR.DNA</span>
-    <h2 class="section-title" data-split>
+    <h2 class="section-title">
       <span class="neon-cyan">COLOR</span> <span class="neon-yellow">PALETTE</span>
     </h2>
     <div class="section-divider" style="background:linear-gradient(90deg,var(--hot-pink),var(--cyan),var(--acid-green),var(--yellow))"></div>
     <p style="color:rgba(255,255,255,0.4);font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;">CLICK ANY SWATCH TO COPY HEX CODE</p>
   </div>
 
-  <div class="palette-container" data-anim>
+  <div class="palette-container reveal">
     <div class="palette-row">
       <div class="color-swatch" style="background:#050508" data-hex="#050508">
         <span class="swatch-hex">#050508</span>
@@ -1962,7 +1759,7 @@
   <div class="grid-bg"></div>
   <div class="splash" style="width:500px;height:500px;background:var(--purple-glow);bottom:-200px;left:50%;transform:translateX(-50%);opacity:0.15"></div>
 
-  <div class="contact-card" data-anim>
+  <div class="contact-card reveal">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
 
@@ -1977,16 +1774,16 @@
     </p>
 
     <div class="contact-buttons">
-      <a href="#" data-magnet class="contact-btn cb-insta">
+      <a href="#" class="contact-btn cb-insta">
         <span>📷</span> INSTAGRAM
       </a>
-      <a href="#" data-magnet class="contact-btn cb-dribbble">
+      <a href="#" class="contact-btn cb-dribbble">
         <span>🏀</span> DRIBBBLE
       </a>
-      <a href="#" data-magnet class="contact-btn cb-behance">
+      <a href="#" class="contact-btn cb-behance">
         <span>🎨</span> BEHANCE
       </a>
-      <a href="mailto:hello@smartart.com" data-magnet class="contact-btn cb-email">
+      <a href="mailto:hello@smartart.com" class="contact-btn cb-email">
         <span>✉</span> EMAIL ME
       </a>
     </div>
@@ -1996,10 +1793,6 @@
     </div>
   </div>
 </section>
-
-<div class="foot-type" data-split>
-  <span class="neon-green">LET'S</span> <span class="neon-pink">BUILD</span> <span class="neon-cyan">SOMETHING</span>
-</div>
 
 <footer class="footer">
   © 2024 <span>EYE BRAIN</span> PORTFOLIO — ALL RIGHTS RESERVED — DESIGNED WITH ☠️ AND NEON
@@ -2074,68 +1867,16 @@ for (let i = 0; i < 30; i++) {
   particleContainer.appendChild(p);
 }
 
-// ===== MOTION ENGINE =====
-const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const clampN = (n, a = 0, b = 1) => n < a ? a : n > b ? b : n;
-
-// split headlines into words
-document.querySelectorAll('[data-split]').forEach(el => {
-  const html = el.innerHTML.replace(/<br\s*\/?>/gi, ' <br> ');
-  let i = 0;
-  el.innerHTML = html.trim().split(/\s+/)
-    .map(w => w === '<br>' ? '<br>' : `<span class="w"><i style="--i:${i++}">${w}</i></span>`)
-    .join(' ');
-});
-
-const io = new IntersectionObserver(entries => {
-  for (const e of entries) {
-    if (!e.isIntersecting) continue;
-    e.target.classList.add('is-in');
-    io.unobserve(e.target);
-  }
-}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-document.querySelectorAll('[data-anim],[data-split]').forEach(el => io.observe(el));
-
-// parallax + odometer + progress bar, one rAF pass
-const parallax = [...document.querySelectorAll('[data-speed]')];
-const docEl = document.documentElement;
-let raf = null;
-function frame() {
-  raf = null;
-  const vh = innerHeight;
-  for (const el of parallax) {
-    const r = el.getBoundingClientRect();
-    const centered = (r.top + r.height / 2) - vh / 2;
-    el.style.setProperty('--sy', (centered * -parseFloat(el.dataset.speed)).toFixed(1) + 'px');
-  }
-  docEl.style.setProperty('--sx', scrollY.toFixed(0) + 'px');
-  const max = docEl.scrollHeight - vh;
-  docEl.style.setProperty('--sp', max > 0 ? clampN(scrollY / max).toFixed(4) : '0');
-}
-const onScroll = () => { if (raf === null) raf = requestAnimationFrame(frame); };
-addEventListener('scroll', onScroll, { passive: true });
-addEventListener('resize', onScroll);
-frame();
-
-// magnetic buttons
-if (!REDUCED && matchMedia('(pointer:fine)').matches) {
-  document.querySelectorAll('[data-magnet]').forEach(el => {
-    el.addEventListener('pointermove', ev => {
-      const r = el.getBoundingClientRect();
-      const x = (ev.clientX - r.left - r.width / 2) * 0.22;
-      const y = (ev.clientY - r.top - r.height / 2) * 0.3;
-      el.style.transform = `translate(${x}px, ${y}px)`;
-    });
-    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+// ===== SCROLL REVEAL =====
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
   });
-}
-
-// keyboard access for character cards
-document.querySelectorAll('.char-card[data-char]').forEach(card => {
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card.dataset.char); }
-  });
-});
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+reveals.forEach(r => revealObserver.observe(r));
 
 // ===== SIDE NAV =====
 const dots = document.querySelectorAll('.nav-dot');
@@ -2148,14 +1889,12 @@ dots.forEach(dot => {
   });
 });
 
-const topLinks = [...document.querySelectorAll('#top-nav a[href^="#"]')];
 const sectionObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       dots.forEach(d => d.classList.remove('active'));
       const active = document.querySelector(`.nav-dot[data-target="${e.target.id}"]`);
       if (active) active.classList.add('active');
-      topLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id && !a.classList.contains('cta')));
     }
   });
 }, { threshold: 0.3 });
@@ -2164,14 +1903,17 @@ sections.forEach(id => {
   if (el) sectionObserver.observe(el);
 });
 
-// ===== NAV: hide on scroll down, show on scroll up =====
-const topNav = document.getElementById('top-nav');
-let lastY = 0;
-addEventListener('scroll', () => {
-  const y = scrollY;
-  topNav.classList.toggle('is-hidden', y > 420 && y > lastY);
-  lastY = y;
-}, { passive: true });
+// ===== PARALLAX =====
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const hero = document.getElementById('hero');
+  if (hero) {
+    const splashes = hero.querySelectorAll('.splash');
+    splashes.forEach((s, i) => {
+      s.style.transform = `translateY(${scrollY * (0.3 + i * 0.1)}px)`;
+    });
+  }
+});
 
 // ===== FILTER BUTTONS =====
 const filterBtns = document.querySelectorAll('.filter-btn');
@@ -2217,7 +1959,6 @@ const charData = {
     name: 'VENOM-X',
     label: '// CREATURE_DESIGN',
     art: '🧬',
-    image: '/__l5e/assets-v1/b82a6ca5-b4e3-4eaa-b3a0-f7fa6887ee97/venom-sheet.png',
     desc: 'Venom-X is a bio-mechanical horror — acid green dripping, tendrils of corrupted data. Designed to embody the feeling of raw nature mutated by technology. Part creature, part code.',
     tags: ['Creature Design', 'Horror Art', 'Bio-Mechanical', 'Acid Green', 'Photoshop']
   },

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PortfolioButton } from "@/components/PortfolioButton";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -21,12 +22,7 @@ function Index() {
         <p className="text-muted-foreground">
           The portfolio is served as a standalone page.
         </p>
-        <a
-          href="/portfolio"
-          className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-        >
-          Open Portfolio
-        </a>
+        <PortfolioButton href="/portfolio" />
       </div>
     </main>
   );
